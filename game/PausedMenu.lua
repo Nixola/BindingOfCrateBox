@@ -12,7 +12,8 @@ function PausedMenu:initialize()
                            "because that's how dad did it?",
                            "and that's how america does it?",
                            "and it's worked out pretty well so far?"}
-    self.about_texts = {'Created by adnzzzzZ with LÖVE', "also i'm looking for an artist",
+    self.controller_texts = {''}
+    self.about_texts = {'Created by adnzzzzZ with LÖVE', "also ported to LÖVE 0.9.2 by Nix",
                         'i have no plans on keeping it looking the same',
                         'so you can have any kind of super duper cool art style', 
                         "because that's how dad did it",
@@ -24,8 +25,10 @@ function PausedMenu:initialize()
     self.about = false
     self.collection = false
     self.how2play = false
+    self.controller = false
     self.selected_color = {232, 128, 232, 255}
     self.hold_to_jump = true
+    self.particles = 1
     beholder.observe('HOLD TO JUMP REQUEST', function()
         beholder.trigger('HOLD TO JUMP REPLY', self.hold_to_jump)
     end)
@@ -100,6 +103,34 @@ function PausedMenu:draw()
         love.graphics.print(text, 400 - w/2 + 2, 48 + 2)
         love.graphics.setColor(255, 255, 255, 255)
         love.graphics.print(text, 400 - w/2, 48)
+
+        love.graphics.setFont(UI_TEXT_FONT_24)
+        text = 'PARTICLES'
+        w = UI_TEXT_FONT_24:getWidth(text)
+        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.print(text, 200 - w/2 - 2, 304 - 2)
+        love.graphics.print(text, 200 - w/2 - 2, 304 + 2)
+        love.graphics.print(text, 200 - w/2 + 2, 304 - 2)
+        love.graphics.print(text, 200 - w/2 + 2, 304 + 2)
+        if self.settings_pointer == 4 then
+            love.graphics.setColor(unpack(self.selected_color))
+        else
+            love.graphics.setColor(255, 255, 255, 255)
+        end
+        love.graphics.print(text, 200 - w/2, 304)
+        if self.particles == 1 then text = 'ON'
+        else text = 'OFF (impatcs gameplay)' end
+        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.print(text, 336 - 2, 304 - 2)
+        love.graphics.print(text, 336 - 2, 304 + 2)
+        love.graphics.print(text, 336 + 2, 304 - 2)
+        love.graphics.print(text, 336 + 2, 304 + 2)
+        if self.settings_pointer == 4 then
+            love.graphics.setColor(unpack(self.selected_color))
+        else
+            love.graphics.setColor(255, 255, 255, 255)
+        end
+        love.graphics.print(text, 336, 304)
 
         love.graphics.setFont(UI_TEXT_FONT_24)
         text = 'HOLD TO JUMP'
@@ -259,12 +290,13 @@ function PausedMenu:keypressed(key)
         self.about = false
         self.collection = false
         self.how2play = false
+        self.controller = false
     end
 
     if key == 'up' or key == 'Up' or key == 'w' then
         if self.settings then
             self.settings_pointer = self.settings_pointer - 1
-            if self.settings_pointer <= 0 then self.settings_pointer = 3 end
+            if self.settings_pointer <= 0 then self.settings_pointer = 4 end
         else
             self.pointer = self.pointer - 1
             if self.pointer <= 0 then self.pointer = #self.options end
@@ -274,7 +306,7 @@ function PausedMenu:keypressed(key)
     if key == 'down' or key == 'Down' or key == 's' then
         if self.settings then
             self.settings_pointer = self.settings_pointer + 1
-            if self.settings_pointer > 3 then self.settings_pointer = 1 end
+            if self.settings_pointer > 4 then self.settings_pointer = 1 end
         else
             self.pointer = self.pointer + 1
             if self.pointer > #self.options then self.pointer = 1 end
@@ -293,6 +325,12 @@ function PausedMenu:keypressed(key)
                 beholder.trigger('SET GAME VOLUME', self.game_volume)
             elseif self.settings_pointer == 3 then
                 self.hold_to_jump = not self.hold_to_jump
+            elseif self.settings_pointer == 4 then
+                self.particles = self.particles - 1
+                if self.particles < 0 then
+                    self.particles = 1
+                end
+                beholder.trigger('SET PARTICLE RATE', self.particles)
             end
         end
     end
@@ -309,6 +347,12 @@ function PausedMenu:keypressed(key)
                 beholder.trigger('SET GAME VOLUME', self.game_volume)
             elseif self.settings_pointer == 3 then
                 self.hold_to_jump = not self.hold_to_jump
+            elseif self.settings_pointer == 4 then
+                self.particles = self.particles + 1
+                if self.particles > 1 then
+                    self.particles = 0
+                end
+                beholder.trigger('SET PARTICLE RATE', self.particles)
             end
         end
     end
