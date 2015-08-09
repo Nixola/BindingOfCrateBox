@@ -51,6 +51,7 @@ function PausedMenu:initialize()
     beholder.observe('SET PARTICLE RATE', function(n)
         self.particles = n
     end)
+    beholder.observe('SET PARTICLE RATE REQUEST', function() beholder.trigger('SET PARTICLE RATE', self.particles) end)
     self.music_volume = nil
     beholder.observe('MUSIC VOLUME REPLY', function(s) self.music_volume = s end)
     beholder.observe('SET MUSIC VOLUME', function(s) self.music_volume = s end)

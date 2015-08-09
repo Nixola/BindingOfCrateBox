@@ -20,6 +20,9 @@ function Game:initialize()
         self.end_it_all = true
     end)
 
+    beholder.observe('SET PARTICLE RATE', function(n)
+        self.current_level.particle:setRate(n)
+    end)
     self.music_text = nil
     self.music_color = {255, 255, 255, 0}
     self.music_color2 = {0, 0, 0, 0}
@@ -79,6 +82,7 @@ function Game:initialize()
                 current_map_name = name
                 if name ~= 'market' and not string.match(name, 'tutorial') and not string.match(name, 'item') then n_levels = n_levels + 1 end
                 self.current_level = Level(name)
+                beholder.trigger('SET PARTICLE RATE REQUEST')
             end
         end)
     end)

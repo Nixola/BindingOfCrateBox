@@ -29,10 +29,6 @@ function Level:initialize(name)
     self.camera = Camera(GAME_WIDTH/2, 320-128)
     self.camera_shake = CameraShake(self.camera)
     self.particle = Particle()
-
-    beholder.observe('SET PARTICLE RATE', function(n)
-        self.particle:setRate(n)
-    end)
     
     -- Physics
     love.physics.setMeter(PHYSICS_METER)

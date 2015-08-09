@@ -7,7 +7,6 @@ function Particle:initialize()
     self.to_be_removed = {}
     self.uid = 0
     self.rate = 1
-    print "FUN"
 end
 
 function Particle:spawn(name, settings)
