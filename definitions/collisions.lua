@@ -1,0 +1,17 @@
+function loadCollisions()
+    local collision_mask = struct('categories', 'masks')
+    collision_masks = {}
+    collision_masks['Player'] = collision_mask({1}, {5})
+    collision_masks['Solid'] = collision_mask({2}, {5})
+    collision_masks['Projectile'] = collision_mask({3}, {1, 3, 5})
+    collision_masks['Area'] = collision_mask({3}, {1, 2, 3, 5})
+    collision_masks['Line'] = collision_mask({3}, {1, 2, 3, 5})
+    collision_masks['Enemy'] = collision_mask({4}, {1, 3, 4, 5})
+    collision_masks['FlyingEnemy'] = collision_mask({4}, {1, 2, 3, 4, 5})
+    collision_masks['ItemBox'] = collision_mask({2}, {1, 3, 4, 5})
+    collision_masks['Mine'] = collision_mask({2}, {1, 3, 4, 5})
+    collision_masks['Familiar'] = collision_mask({5}, {1, 2, 3, 4, 5})
+    collision_masks['Resource'] = collision_mask({2}, {1, 4, 5})
+    collision_masks['EProjectile'] = collision_mask({3}, {2, 3, 4, 5})
+    collision_masks['Boss'] = collision_mask({5}, {1, 2, 3, 4, 5})
+end

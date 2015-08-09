@@ -1,0 +1,29 @@
+Will debase self for them.
+
+!
+
+Game created by adnzzzzZ with LÖVE (http://love2d.org/).
+If this game makes your computer explode it's not my fault.
+
+CREDITS (none of them actually know they're a part of this game, hihihi):
+
+Music by KgZ (James Landino) - http://www.macjams.com/artist/kgz, https://soundcloud.com/kgzmusic
+
+Initial graphics by balucha - http://www.youtube.com/user/balucha12345, http://www.reddit.com/user/balucha
+Additional graphics by 7soul1 (http://7soul1.deviantart.com/art/Extra-98-Free-RPG-Icons-389778011, http://7soul1.deviantart.com/art/420-Pixel-Art-Icons-for-RPG-129892453)
+Additional additional graphics by random pixel art templates on google images.
+
+LÖVE libraries used: 
+	AnAL by bartbes (https://love2d.org/wiki/AnAL), 
+	beholder by kikito (https://github.com/kikito/beholder.lua),
+	Chrono by me (https://github.com/adonaac/chrono),
+	hump by vrld (http://vrld.github.io/hump/),
+	Jumper by Yonaba (https://github.com/Yonaba/Jumper),
+	middleclass by kikito (https://github.com/kikito/middleclass),
+	struct by me (https://github.com/adonaac/struct),
+	tween by kikito (https://github.com/kikito/tween.lua),
+	TEsound by Taehl and Ensayia (https://love2d.org/wiki/TEsound),
+	xboxlove by Walz. (http://love2d.org/forums/viewtopic.php?f=5&t=39984).
+
+
+		

@@ -1,0 +1,179 @@
+Items:
+*Invis Watch
+Between Two Ferns
+*The Salamanca!
+Sentry Gun
+*Spider Butt
+The Gandalf
+*Anivia's R
+New Year's Eve (Full HP)
+Prometheus' Balls
+*The Joker (spawns x pyros for 1 room)
+Concrete
+D20
+Chest -> Money
+Market, Heart -> Money
+*Gangplank's Soul
+*Double Damage
+*Double Defense
+*Through the Fire and Flames
+*Potions
+
+Both slots:
+*Stickybomb Launcher
+
+Attacks:
+*Bubblebeam (starter)
+*Rock Throw (multiplable, starter)
+*Razor Leaf (multiplable, starter)
+*Rocket Launcher (no reflecting)
+*Magnum
+*Psyburst (no reflecting, no exploding, starter)
+*The Direct Hit (no reflecting)
+*Ember (multiplable, starter)
+*Flame Thrower
+*The Beggar's Bazooka (no reflecting)
+*Minigun (no reflecting, no exploding)
+*Natascha (no reflecting, no exploding)
+Machina
+*Brimstone
+*Technology
+*Technology 2
+*Sludge Bomb (no reflecting)
+Gauss Gun
+*Egg Bomb Launcher
+The Brimsnap
+*Mutant Spider
+*Resonance Cascade
+
+Passives: (high level)
+*The Scout (double jump, +speed)
+*Rainbow Dash (double dash, +speed)
+*Jumpnshootman (triple jump, +shooting rate)
+*Movnshootman (+speed, +shooting rate)
+*Dashnshootman (triple dash, +shooting rate)
+*The Tom Cruise (+2 speed)
+*The Michael Bay (exploding shots, +explosion size)
+*King of Loss (+mask, +charisma)
+Item Finder
+*Chronomage (double use, +effect duration)
+*Thick Skin (takes half damage)
+*Gentle Giant (lose all masks, can't get new masks, takes double damage, +2 all stats)
+Hikki (lose all masks, can't get new masks, polaroid invincibility after hit)
+*Fitter, Happier (+1 all stats)
+*Kiri kiri kiri (+damage, +pierce)
+*Ricochet (+reflect)
+*HL3 (+2 reflect)
+Technomage (faster recharge, +effect duration)
+*ASPD (converts all hearts to masks, +charisma, Terrible Acts of Terror = free)
+*Everything is Okay (chance to drop hearts when hit)
+*Water Bending = Healing (vampirism)
+Water Bending = Necromancy (damaging AoE aura around player)
+*Gun Kata (+damage, +speed, +shooting rate)
+Fence (orbits player and acts as shield)
+*Genius, Billionaire, Playboy, Philanthropist (+x money)
+Soda (-1 hp, drops a bunch of hearts on pickup)
+*Wildfire (fire spreads)
+*Rare Candy (+1 all stats)
+RNJesus (luck up)
+*Legolas' Bow (+shooting rate)
+*Marle's Pendant (+hp)
+*Ayla's Necklace (+damage, +speed, +hp)
+*The Pentagram (+damage)
+*Not Masamune (+damage, +pierce)
+*Starshooter (+shooting rate, +speed)
+*Grog Soaked Spear (poisoning shots)
+*Enchanted Crystal Spear (slowing shots)
+*Equilibrium Spear (stunning shots)
+*Impervius (+hp, +reflect)
+*Foodstuffs (+hp)
+*Jack Sparrow's Heart (+chests)
+*Charon's Obol (+money)
+*My Reflection (+reflect)
+*Ninja Assasin (+shooting rate, +speed)
+*Love (+hearts)
+*Cannon Barrage (+bombs)
+*Books
+
+Pills (q items):
+Any random stat up
+Any trap
+Any buff/debuff global effect
+
+Passives: (low level)
+*Dash
+Fork
+Back
++-Pierce
++-Multiple
++-Reflect
++-Damage 
++-Speed 
++-Shoot Size 
++-Shooting Rate
++-Size
++-Explosion Size
++-Action (more enemies)
++-Effect Duration (if not permanent)
+
+Buffs/Traps/Effects:
+All (or most) Recettear's Floor Effects
+Rains of Castamere [trap](music... music... music... ARROWS!)
+Tokyo Drift [effect, debuff](icy)
+Checkpoint! [trap](goes back in time (player position, stats, items, passives, ...))
+The Night is Dark and Full of Terrors [effect, debuff] (darkness, higher enemy damage)
+Everything is Terrible [effect, debuff](lower luck, bigger dungeons, harder enemies)
+Ah, the lasers![trap](music + lasers!)
+The Bard's Song [effect, buff](regen hearts over time)
+Riders on the Storm (Trippy)
+Zombie Apocalypse [effect](all enemies are Super Crate Box-like zombies)
+
+Familiars:
+*Bicurious (Harlequin Baby)
+A.Sate (lasers!)
+Dragon (Flamethrower)
+*Flaria (Flare Gun)
+*Friend
+*A Better Friend
+*Earth Tower  
+*Fire Tower
+*Water Tower 
+*Wind Tower
+
+Spiderbro (slowing shots)
+Lady Luck (every room, or every other room has a chance of dropping/triggering any attack/item/resource/effect)
+Grub
+Item Finder Bot
+Slugs (attaches to enemies and damage+slow them, moves attached to solids)
+Brainslugs (attaches to enemies so they don't attack you, moves attached to solids)
+Boar (charge)
+
+Rooms:
+Rave Room (+mask primarily)
+Item Room
+Market
+Boss Room
+Secret Room
+Computer Room (-mask primarily)
+Trap Room
+SCP-914 (The Machine, in -> any item/resource, out -> any item/resource)
+Investment Room (appears twice in each run)
+
+Resources:
+Heart
+Mask
+Passive
+Money
+
+Resource Traders:
+Terrible Acts of Terror (HP -> money)
+Computer (mask -> passive, all others)
+NPC masked (mask -> more masks, all others) (better drops with high mask, even better with high charisma)
+NPC blockers (block access to certain rooms or items, use charisma to pass)
+NPC enablers (charisma -> all others)
+
+Start/ending screens:
+Inception
+Claire de Lune
+Bum
+Mr. Anderson, Inevitability

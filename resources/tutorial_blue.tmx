@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="environment_32" tilewidth="32" tileheight="32">
+  <image source="../../../ys/resources/tiles/environment_32.png" width="512" height="512"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="25" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgUKMDpiUYtWPUjqFsxyggHlC7bBlp5RU1y/DhFlb0SFe0xgDSKhB7
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="25" height="20">
+  <object type="Solid" x="0" y="608" width="800" height="32"/>
+  <object type="Solid" x="640" y="576" width="160" height="32"/>
+  <object type="Solid" x="768" y="32" width="32" height="256"/>
+  <object type="Solid" x="160" y="480" width="480" height="32"/>
+  <object type="Solid" x="0" y="576" width="160" height="32"/>
+  <object type="Solid" x="640" y="384" width="160" height="32"/>
+  <object type="Solid" x="0" y="384" width="160" height="32"/>
+  <object type="Player" x="64" y="352" width="32" height="32"/>
+  <object type="Solid" x="768" y="416" width="32" height="160"/>
+  <object type="WallDoor" x="0" y="288" width="32" height="96"/>
+  <object type="Solid" x="0" y="32" width="32" height="256"/>
+  <object type="Solid" x="0" y="416" width="32" height="160"/>
+  <object type="Solid" x="0" y="0" width="800" height="32"/>
+ </objectgroup>
+</map>

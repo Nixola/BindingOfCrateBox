@@ -1,0 +1,21 @@
+Lock harder things initially so the player doesn't feel overwhelmed by the number of rules/objects/monsters/rooms
+and has an easier time just playing through and learning the basics. Unlock more things as the player wins runs.
+
+Don't use hunger clocks.
+
+Can only hold one item, having to manage resources/buffs appropriately. Make sure that each level-room1(room2) group 
+has many possible opportunities for trading resources so the player can go back and forth between rooms and take advantage
+of whatever he wants.
+
+Easier than normal roguelike difficulty curve at first (easier to start, but then progresses normally 
+(which means pretty fucking hard)) but also add Bastion-like "prayers" that let more experienced players 
+make runs harder if they want to.
+
+Enemies won't be melee only, so need to figure out a way of making sure the player can easily tell which projectiles
+are his and which aren't.
+
+
+
+
+
+
