@@ -120,7 +120,7 @@ function Game:draw()
                 end
 
                 love.graphics.setFont(UI_TEXT_FONT_16)
-                local t = "Have it connected before you (re)start the game though"
+                local t = "Plug one in/out now or during the game!"
                 local w = UI_TEXT_FONT_16:getWidth(t)
                 love.graphics.setColor(0, 0, 0, 255)
                 love.graphics.print(t, 400 - w/2 - 1, 288 - 1)
