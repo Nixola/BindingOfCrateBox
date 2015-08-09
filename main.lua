@@ -167,7 +167,7 @@ function love.joystickadded(joystick)
 end
 
 function love.joystickremoved(joystick)
-    if controller.joystick == joystick then
+    if controller and (controller.joystick == joystick) then
         controller = false
     end
 end
