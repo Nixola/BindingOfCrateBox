@@ -6,6 +6,8 @@ function Particle:initialize()
     self.particle_systems = {}
     self.to_be_removed = {}
     self.uid = 0
+    self.rate = 1
+    print "FUN"
 end
 
 function Particle:spawn(name, settings)
@@ -34,6 +36,7 @@ end
 
 function Particle:set(id, settings)
     local ps = self.particle_systems[findIndexByID(self.particle_systems, id)]
+    if not ps then return end
     if settings then
         for k, v in pairs(settings) do
             -- if k == 'rotation' then self.particle_systems[findIndexByID(..., id)].ps:setRotation(settings.rotation) end
@@ -86,7 +89,7 @@ function Particle:createPS(template)
     end
     ps:setColors(unpack(colors))
     ps:setDirection(degToRad(template.direction))
-    ps:setEmissionRate(template.emission_rate)
+    ps:setEmissionRate(template.emission_rate * self.rate)
     ps:setLinearAcceleration(0, template.gravity[1], 0, template.gravity[2])
     ps:setEmitterLifetime(template.lifetime)
     ps:setOffset(template.offset[1], template.offset[2])
@@ -146,9 +149,18 @@ function Particle:update(dt)
 end
 
 function Particle:draw()
+    if Particle.rate == 0 then return end
     for _, p in ipairs(self.particle_systems) do 
         if p.x and p.y then
             love.graphics.draw(p.ps, p.x*scale, p.y*scale, 0, scale, scale)
         end
     end
+end
+
+function Particle:setRate(newRate)
+    self.rate = newRate
+end
+
+function Particle:getRate()
+    print(self, self.rate)
 end
