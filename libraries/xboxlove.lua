@@ -16,18 +16,6 @@ function xboxlove.create(joystick)
 	local new = {}
 	setmetatable(new,xboxlove)
 
-	--joystick = joystick tonumber(joystick)
-	--if joystick then
-	--	if joystick < 1 or joystick > joystickCount then
-	--		return nil
-	--	end
-	--	new.joystick = joystick
-	--elseif joystickCount < 1 then
-	--	return nil
-	--else
-	--	new.joystick = 1
-	--end
-
 	if not (joystick and joystick:isGamepad()) then
 
 		return nil
