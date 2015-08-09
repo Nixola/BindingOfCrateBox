@@ -241,7 +241,7 @@ function Resource:collisionPlayer(player)
 
     elseif self.type == 'Surprise' then
         if self.marketed then
-            if money >= self.cost then
+            if money >= self.cost and (love.keyboard.isDown "s" or love.keyboard.isDown "down" or controller.Dpad.Down) then
                 money = money - self.cost
             else return end
         end
@@ -272,7 +272,8 @@ function Resource:collisionPlayer(player)
 
     elseif self.type == 'API' then
         if self.marketed then
-            if money >= self.cost then
+            print(love.keyboard.isDown "s", love.keyboard.isDown "down", controller.Dpad.Down)
+            if money >= self.cost and (love.keyboard.isDown "s" or love.keyboard.isDown "down" or controller.Dpad.Down) then
                 money = money - self.cost
             else return end
         end
