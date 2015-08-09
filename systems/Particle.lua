@@ -87,10 +87,10 @@ function Particle:createPS(template)
     ps:setColors(unpack(colors))
     ps:setDirection(degToRad(template.direction))
     ps:setEmissionRate(template.emission_rate)
-    ps:setGravity(template.gravity[1], template.gravity[2])
-    ps:setLifetime(template.lifetime)
+    ps:setLinearAcceleration(0, template.gravity[1], 0, template.gravity[2])
+    ps:setEmitterLifetime(template.lifetime)
     ps:setOffset(template.offset[1], template.offset[2])
-    ps:setParticleLife(template.particle_life[1], template.particle_life[2])
+    ps:setParticleLifetime(template.particle_life[1], template.particle_life[2])
     ps:setRadialAcceleration(template.radial_acc[1], template.radial_acc[2])
     ps:setRotation(degToRad(template.rotation[1]), degToRad(template.rotation[2]))
     ps:setSizeVariation(template.size_variation)
@@ -138,7 +138,7 @@ function Particle:update(dt)
             end
         end
     
-        if p.ps:isEmpty() then
+        if p.ps:getCount() == 0 then
             table.insert(self.to_be_removed, p.id)
         end
     end
