@@ -25,7 +25,21 @@ function love.load()
 
     debug_draw = false
 
-    controller = xboxlove.create(1)
+    love.joystick.loadGamepadMappings("resources/mappings.list")
+    if love.filesystem.isFile("resources/user.mappings.list") then
+        love.joystick.loadGamepadMappings("resources/user.mappings.list")
+    end
+    local c
+    for i, joystick in ipairs(love.joystick.getJoysticks()) do
+        if joystick:isGamepad() then
+            c = joystick
+            break
+        else
+            print("Name:", joystick:getName())
+            print("GUID:", joystick:getGUID())
+        end
+    end
+    controller = xboxlove.create(c)
     controller_keys_down = {}
     controller_dpad_keys = {'Up', 'Down', 'Left', 'Right'}
     controller_buttons = {'A', 'B', 'X', 'Y', 'LB', 'RB', 'Start', 'Back'}
@@ -143,6 +157,22 @@ function love.keyreleased(key)
     current_state:keyreleased(key) 
 end
 
+function love.joystickadded(joystick)
+    if not controller then
+        controller = xboxlove.create(joystick)
+        if controller then
+            controller:setDeadzone("ALL", 0)
+        end
+    end
+end
+
+function love.joystickremoved(joystick)
+    if controller.joystick == joystick then
+        controller = false
+    end
+end
+
+
 function love.run()
     math.randomseed(os.time())
     math.random(); math.random(); math.random();
@@ -195,3 +225,4 @@ function love.run()
         if love.graphics then love.graphics.present() end
     end
 end
+

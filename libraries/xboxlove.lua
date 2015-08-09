@@ -6,7 +6,7 @@
 --]]
 
 local _PLATFORM = os.getenv("windir") and "win32" or "unix"
-local joystickCount = love.joystick.getNumJoysticks() -- 0.9: love.joystick.getJoystickCount()
+local joystickCount = love.joystick.getJoystickCount()
 
 xboxlove = {}
 xboxlove.__index = xboxlove
@@ -16,17 +16,24 @@ function xboxlove.create(joystick)
 	local new = {}
 	setmetatable(new,xboxlove)
 
-	joystick = tonumber(joystick)
-	if joystick then
-		if joystick < 1 or joystick > joystickCount then
-			return nil
-		end
-		new.joystick = joystick
-	elseif joystickCount < 1 then
+	--joystick = joystick tonumber(joystick)
+	--if joystick then
+	--	if joystick < 1 or joystick > joystickCount then
+	--		return nil
+	--	end
+	--	new.joystick = joystick
+	--elseif joystickCount < 1 then
+	--	return nil
+	--else
+	--	new.joystick = 1
+	--end
+
+	if not (joystick and joystick:isGamepad()) then
+
 		return nil
-	else
-		new.joystick = 1
 	end
+
+	new.joystick = joystick
 
 	new.Axes = {}
 	new.Axes.LeftX        = 0
@@ -130,14 +137,15 @@ function xboxlove:isDown(button)
 end
 
 function xboxlove:update(dt)
-	if _PLATFORM == "win32" then
+	--if _PLATFORM == "win32" then
 
 		-- Axes :
-		self.Axes.LeftX    = love.joystick.getAxis(self.joystick,1)
-		self.Axes.LeftY    = love.joystick.getAxis(self.joystick,2)
-		self.Axes.Triggers = love.joystick.getAxis(self.joystick,3)
-		self.Axes.RightX   = love.joystick.getAxis(self.joystick,5)
-		self.Axes.RightY   = love.joystick.getAxis(self.joystick,4)
+		self.Axes.LeftX    = self.joystick:getGamepadAxis("leftx")
+		self.Axes.LeftY    = self.joystick:getGamepadAxis("lefty")
+		--self.Axes.Triggers = love.joystick.getAxis(self.joystick,3)
+		self.Axes.RightX   = self.joystick:getGamepadAxis("rightx")
+		self.Axes.RightY   = self.joystick:getGamepadAxis("righty")
+		--[[
 		if self.Axes.Triggers < 0 then 
 			self.Axes.RightTrigger = math.abs(self.Axes.Triggers)
 			self.Axes.LeftTrigger = 0
@@ -147,10 +155,12 @@ function xboxlove:update(dt)
 		else
 			self.Axes.RightTrigger = 0
 			self.Axes.LeftTrigger = 0
-		end
+		end--]]
+		self.Axes.leftTrigger  = self.joystick:getGamepadAxis("triggerleft")
+		self.Axes.RightTrigger = self.joystick:getGamepadAxis("triggerright")
 
 			-- Dpad :
-		local Dpad = love.joystick.getHat(self.joystick,1)
+		local Dpad = self.joystick:getHat(1)
 		if Dpad == 'c' then
 			self.Dpad.Centered = true
 			self.Dpad.Up       = false
@@ -167,30 +177,30 @@ function xboxlove:update(dt)
 		self.Dpad.Direction = Dpad
 
 			-- Buttons
-		self.Buttons.A          = love.joystick.isDown(self.joystick, 1)
-		self.Buttons.B          = love.joystick.isDown(self.joystick, 2)
-		self.Buttons.X          = love.joystick.isDown(self.joystick, 3)
-		self.Buttons.Y          = love.joystick.isDown(self.joystick, 4)
-		self.Buttons.LB         = love.joystick.isDown(self.joystick, 5)
-		self.Buttons.RB         = love.joystick.isDown(self.joystick, 6)
-		self.Buttons.Back       = love.joystick.isDown(self.joystick, 7)
-		self.Buttons.Start      = love.joystick.isDown(self.joystick, 8)
-		self.Buttons.LeftStick  = love.joystick.isDown(self.joystick, 9)
-		self.Buttons.RightStick = love.joystick.isDown(self.joystick, 10)
-		self.Buttons.Home       = false
+		self.Buttons.A          = self.joystick:isGamepadDown("a")
+		self.Buttons.B          = self.joystick:isGamepadDown("b")
+		self.Buttons.X          = self.joystick:isGamepadDown("x")
+		self.Buttons.Y          = self.joystick:isGamepadDown("y")
+		self.Buttons.LB         = self.joystick:isGamepadDown("leftshoulder")
+		self.Buttons.RB         = self.joystick:isGamepadDown("rightshoulder")
+		self.Buttons.Back       = self.joystick:isGamepadDown("back")
+		self.Buttons.Start      = self.joystick:isGamepadDown("start")
+		self.Buttons.LeftStick  = self.joystick:isGamepadDown("leftstick")
+		self.Buttons.RightStick = self.joystick:isGamepadDown("rightstick")
+		self.Buttons.Home       = self.joystick:isGamepadDown("guide")
 
-		self.Buttons.LT = self.Axes.Triggers == 1
-		self.Buttons.RT = self.Axes.Triggers == -1
+		self.Buttons.LT = self.joystick:getGamepadAxis("triggerleft") == 1
+		self.Buttons.RT = self.joystick:getGamepadAxis("triggerright") == 1
 
-	else
+	--[[else
 			-- Axes
-		self.Axes.LeftX        = love.joystick.getAxis(self.joystick,1)
-		self.Axes.LeftY        = love.joystick.getAxis(self.joystick,2)
-		self.Axes.RightX       = love.joystick.getAxis(self.joystick,3)
-		self.Axes.RightY       = love.joystick.getAxis(self.joystick,4)
-		self.Axes.LeftTrigger  = (love.joystick.getAxis(self.joystick,5)+1)/2
-		self.Axes.RightTrigger = (love.joystick.getAxis(self.joystick,6)+1)/2
-		self.Axes.Triggers     = (love.joystick.getAxis(self.joystick,5)+1)/2 - (love.joystick.getAxis(self.joystick,6)+1)/2
+		self.Axes.LeftX    = self.joystick:getGamepadAxis("leftx")
+		self.Axes.LeftY    = self.joystick:getGamepadAxis("lefty")
+		--self.Axes.Triggers = love.joystick.getAxis(self.joystick,3)
+		self.Axes.RightX   = self.joystick:getGamepadAxis("rightx")
+		self.Axes.RightY   = self.joystick:getGamepadAxis("righty")
+		self.Axes.leftTrigger  = self.joystick:getGamepadAxis("triggerleft")
+		self.Axes.RightTrigger = self.joystick:getGamepadAxis("triggerright")
 
 			-- Dpad
 		self.Dpad.Up    = love.joystick.isDown(self.joystick, 1)
@@ -218,22 +228,22 @@ function xboxlove:update(dt)
 		end
 
 			-- Buttons
-		self.Buttons.A          = love.joystick.isDown(self.joystick, 12)
-		self.Buttons.B          = love.joystick.isDown(self.joystick, 13)
-		self.Buttons.X          = love.joystick.isDown(self.joystick, 14)
-		self.Buttons.Y          = love.joystick.isDown(self.joystick, 15)
-		self.Buttons.LB         = love.joystick.isDown(self.joystick, 9)
-		self.Buttons.RB         = love.joystick.isDown(self.joystick, 10)
-		self.Buttons.Back       = love.joystick.isDown(self.joystick, 6)
-		self.Buttons.Start      = love.joystick.isDown(self.joystick, 5)
-		self.Buttons.LeftStick  = love.joystick.isDown(self.joystick, 7)
-		self.Buttons.RightStick = love.joystick.isDown(self.joystick, 8)
-		self.Buttons.Home       = love.joystick.isDown(self.joystick, 11)
+		self.Buttons.A          = self.joystick:isGamepadDown("a")
+		self.Buttons.B          = self.joystick:isGamepadDown("b")
+		self.Buttons.X          = self.joystick:isGamepadDown("x")
+		self.Buttons.Y          = self.joystick:isGamepadDown("y")
+		self.Buttons.LB         = self.joystick:isGamepadDown("leftshoulder")
+		self.Buttons.RB         = self.joystick:isGamepadDown("rightshoulder")
+		self.Buttons.Back       = self.joystick:isGamepadDown("back")
+		self.Buttons.Start      = self.joystick:isGamepadDown("start")
+		self.Buttons.LeftStick  = self.joystick:isGamepadDown("leftstick")
+		self.Buttons.RightStick = self.joystick:isGamepadDown("rightstick")
+		self.Buttons.Home       = self.joystick:isGamepadDown("guide")
 
-		self.Buttons.LT = love.joystick.getAxis(self.joystick,5) == 1
-		self.Buttons.RT = love.joystick.getAxis(self.joystick,6) == 1
+		self.Buttons.LT = self.joystick:getAxis("triggerleft") == 1
+		self.Buttons.RT = love.joystick.getAxis("triggerright") == 1
 
-	end
+	end--]]
 	   
 	   -- Apply Deadzones
 	local z = 0
