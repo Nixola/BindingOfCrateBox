@@ -152,12 +152,12 @@ function Player:draw()
     else love.graphics.setColor(255, 255, 255, self.alpha) end
     if self.current_attack then
         if self.current_attack.name == 'Brimstone' then
-            love.graphics.setColorMode('combine')
+            --love.graphics.setColorMode('combine')
             love.graphics.setColor(unpack(self.brim_rgb))
         end
     end
     self:visualDraw()
-    love.graphics.setColorMode('modulate')
+    --love.graphics.setColorMode('modulate')
     love.graphics.setColor(255, 255, 255, 255)
     self:attackDraw()
     self:itemDraw()

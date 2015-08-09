@@ -62,10 +62,10 @@ function Mine:draw()
         local t = love.timer.getTime()-self.tick_c
         love.graphics.rectangle('line', (self.p.x-self.w-2), (self.p.y-self.h/2-16), 2*self.w, 8) 
         love.graphics.rectangle('fill', (self.p.x-self.w-2), (self.p.y-self.h/2-16), (2*self.w-(t*2*self.w/self.mine.ti)), 8) 
-        love.graphics.setColorMode('combine')
+        --love.graphics.setColorMode('combine')
         love.graphics.setColor(unpack(self.tick_rgb))
         love.graphics.draw(self.mine.image, (self.p.x - self.w/2), (self.p.y - self.h/2))
-        love.graphics.setColorMode('modulate')
+        --love.graphics.setColorMode('modulate')
         love.graphics.setColor(255, 255, 255)
     end
     self:physicsRectangleDraw()

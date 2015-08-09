@@ -135,12 +135,12 @@ function Resource:draw()
     if self.type == 'Heart' or self.type == 'Mask' or self.type == 'HalfHeart' or 
        self.type == 'HalfMask' or self.type == 'API' or self.type == 'Surprise' or self.type == 'Bomb' then
         if self.type == 'API' then
-            love.graphics.setColorMode('combine')
+            --love.graphics.setColorMode('combine')
             love.graphics.setColor(unpack(self.api_color))
         end
         love.graphics.draw(self.visual, x, y)
         love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.setColorMode('modulate')
+        --love.graphics.setColorMode('modulate')
     elseif self.type == 'BronzeCoin' then
         self.visual:draw(x, y)
     elseif self.type == 'Chest' then

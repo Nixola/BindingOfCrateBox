@@ -63,13 +63,13 @@ function Automata:initialize(type, x, y, t_difficulty)
                     self.attacking_flag = true
                     -- up
                     if self.difficulty == 'yellow' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {224, 224, 160, 255}}, 'outCubic'))
+                        self:collectorAddTween(main_tween(1, self, {trigger_color = {255, 255, 182, 255}}, 'outCubic'))
                     elseif self.difficulty == 'green' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {160, 224, 160, 255}}, 'outCubic'))
+                        self:collectorAddTween(main_tween(1, self, {trigger_color = {182, 255, 182, 255}}, 'outCubic'))
                     elseif self.difficulty == 'blue' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {160, 160, 224, 255}}, 'outCubic'))
+                        self:collectorAddTween(main_tween(1, self, {trigger_color = {182, 182, 255, 255}}, 'outCubic'))
                     elseif self.difficulty == 'red' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {224, 160, 160, 255}}, 'outCubic'))
+                        self:collectorAddTween(main_tween(1, self, {trigger_color = {255, 182, 182, 255}}, 'outCubic'))
                     end
 
                     self:collectorAddTimer(main_chrono:after(1, function()
@@ -98,10 +98,10 @@ end
 
 function Automata:draw()
     if self.type == 'Tiki Trap' then
-        love.graphics.setColorMode('combine')
+        --love.graphics.setColorMode('combine')
         love.graphics.setColor(unpack(self.trigger_color))
         love.graphics.draw(environment_32[98], self.p.x - self.w/2, self.p.y - self.h/2)
-        love.graphics.setColorMode('modulate')
+        --love.graphics.setColorMode('modulate')
         love.graphics.setColor(255, 255, 255, 255)
     elseif self.type == 'Sentry' then
         love.graphics.draw(environment_32[98], self.p.x - self.w/2, self.p.y - self.h/2)
