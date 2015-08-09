@@ -3,7 +3,7 @@ PausedMenu = class('PausedMenu')
 function PausedMenu:initialize()
     self.pointer = 1
     self.settings_pointer = 1
-    self.options = {'resume', 'restart', 'my collection', 'settings', 'how2play', 'about', 'quit'}
+    self.options = {'resume', 'restart', 'my collection', 'settings', 'how2play', 'controller?', 'about', 'quit'}
     self.how2play_texts = {'this game keeps spawning enemies in each room', 
                            'are you a bad enough dude to kill all of them?',
                            'over all 15 or so rooms?',
@@ -12,7 +12,15 @@ function PausedMenu:initialize()
                            "because that's how dad did it?",
                            "and that's how america does it?",
                            "and it's worked out pretty well so far?"}
-    self.controller_texts = {''}
+    self.controller_texts = {'If you have a controller, just plug it in to play!',
+                             'A number of joysticks is supported, but if yours isn\'t you can add',
+                             'your own mappings creating a file named "user.mappings.list" here:',
+                             love.filesystem.getSaveDirectory() .. '/resources/',
+                             '(press left to open it automatically',
+                             'If you don\'t know how, the following web page, where I got',
+                             'the default mappings from, provides some info:',
+                             'https://github.com/gabomdq/SDL_GameControllerDB',
+                             '(press right to open it automatically)'}
     self.about_texts = {'Created by adnzzzzZ with LÖVE', "also ported to LÖVE 0.9.2 by Nix",
                         'i have no plans on keeping it looking the same',
                         'so you can have any kind of super duper cool art style', 
@@ -28,15 +36,27 @@ function PausedMenu:initialize()
     self.controller = false
     self.selected_color = {232, 128, 232, 255}
     self.hold_to_jump = true
-    self.particles = 1
     beholder.observe('HOLD TO JUMP REQUEST', function()
         beholder.trigger('HOLD TO JUMP REPLY', self.hold_to_jump)
     end)
-
+    beholder.observe('SET HOLD TO JUMP', function(status)
+        if status == "true" then
+            status = true
+        elseif status == "false" then
+            status = false
+        end
+        self.hold_to_jump = status
+    end)
+    self.particles = 1
+    beholder.observe('SET PARTICLE RATE', function(n)
+        self.particles = n
+    end)
     self.music_volume = nil
     beholder.observe('MUSIC VOLUME REPLY', function(s) self.music_volume = s end)
+    beholder.observe('SET MUSIC VOLUME', function(s) self.music_volume = s end)
     self.game_volume = nil
     beholder.observe('GAME VOLUME REPLY', function(s) self.game_volume = s end)
+    beholder.observe('SET GAME VOLUME', function(s) self.game_volume = s end)
 end
 
 function PausedMenu:update(dt)
@@ -88,6 +108,35 @@ function PausedMenu:draw()
             love.graphics.print(text, 400 - w/2 + 2, 192+i*32 - 2)
             love.graphics.print(text, 400 - w/2 + 2, 192+i*32 + 2)
             love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.print(text, 400 - w/2, 192+i*32)
+        end
+        love.graphics.setColor(255, 255, 255, 255)
+
+    elseif self.controller then
+        love.graphics.setFont(UI_TEXT_FONT_48)
+        local text = '-CONTROLLER-'
+        local w = UI_TEXT_FONT_48:getWidth(text)
+        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.print(text, 400 - w/2 - 2, 48 - 2)
+        love.graphics.print(text, 400 - w/2 - 2, 48 + 2)
+        love.graphics.print(text, 400 - w/2 + 2, 48 - 2)
+        love.graphics.print(text, 400 - w/2 + 2, 48 + 2)
+        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.print(text, 400 - w/2, 48)
+
+        for i, text in ipairs(self.controller_texts) do
+            love.graphics.setFont(UI_TEXT_FONT_16)
+            w = UI_TEXT_FONT_16:getWidth(text)
+            love.graphics.setColor(0, 0, 0, 255)
+            love.graphics.print(text, 400 - w/2 - 2, 192+i*32 - 2)
+            love.graphics.print(text, 400 - w/2 - 2, 192+i*32 + 2)
+            love.graphics.print(text, 400 - w/2 + 2, 192+i*32 - 2)
+            love.graphics.print(text, 400 - w/2 + 2, 192+i*32 + 2)
+            if i%4 == 0 then
+                love.graphics.setColor(unpack(self.selected_color))
+            else
+                love.graphics.setColor(255, 255, 255, 255)
+            end
             love.graphics.print(text, 400 - w/2, 192+i*32)
         end
         love.graphics.setColor(255, 255, 255, 255)
@@ -332,6 +381,8 @@ function PausedMenu:keypressed(key)
                 end
                 beholder.trigger('SET PARTICLE RATE', self.particles)
             end
+        elseif self.controller then
+            love.system.openURL("file://" .. self.controller_texts[4])
         end
     end
 
@@ -354,35 +405,42 @@ function PausedMenu:keypressed(key)
                 end
                 beholder.trigger('SET PARTICLE RATE', self.particles)
             end
+        elseif self.controller then
+            love.system.openURL(self.controller_texts[8])
         end
     end
 
     if key == 'return' or key == 'space' or key == 'j' or key == 'A' or key == 'X' then
-        if self.options[self.pointer] == 'resume' then
-            beholder.trigger('UNPAUSE')
-            beholder.trigger('CHANGE MUSIC VOLUME', 1)
-            beholder.trigger('CHANGE GAME VOLUME', 1)
+        if not self.settings and not self.how2play and not self.controller and not self.about and not self.collection then
+            if self.options[self.pointer] == 'resume' then
+                beholder.trigger('UNPAUSE')
+                beholder.trigger('CHANGE MUSIC VOLUME', 1)
+                beholder.trigger('CHANGE GAME VOLUME', 1)
 
-        elseif self.options[self.pointer] == 'restart' then
-            beholder.trigger('UNPAUSE')
-            beholder.trigger('CHANGE MUSIC VOLUME', 1)
-            beholder.trigger('CHANGE GAME VOLUME', 1)
-            beholder.trigger('END IT ALL')
+            elseif self.options[self.pointer] == 'restart' then
+                beholder.trigger('UNPAUSE')
+                beholder.trigger('CHANGE MUSIC VOLUME', 1)
+                beholder.trigger('CHANGE GAME VOLUME', 1)
+                beholder.trigger('END IT ALL')
 
-        elseif self.options[self.pointer] == 'my collection' then
-            self.collection = true
+            elseif self.options[self.pointer] == 'my collection' then
+                self.collection = true
 
-        elseif self.options[self.pointer] == 'settings' then
-            self.settings = true
+            elseif self.options[self.pointer] == 'settings' then
+                self.settings = true
 
-        elseif self.options[self.pointer] == 'about' then
-            self.about = true
+            elseif self.options[self.pointer] == 'about' then
+                self.about = true
 
-        elseif self.options[self.pointer] == 'how2play' then
-            self.how2play = true
+            elseif self.options[self.pointer] == 'how2play' then
+                self.how2play = true
 
-        elseif self.options[self.pointer] == 'quit' then
-            love.event.push('quit')
+            elseif self.options[self.pointer] == 'controller?' then
+                self.controller = true
+
+            elseif self.options[self.pointer] == 'quit' then
+                love.event.push('quit')
+            end
         end
     end
 end

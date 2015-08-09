@@ -15,7 +15,7 @@ function initialize()
 end
 
 function love.load()
-    love.filesystem.setIdentity("The Binding of Crate Box v0.1.1")
+    love.filesystem.setIdentity("bindingCrateBox")
     love.graphics.setDefaultFilter('nearest', 'nearest')
     uid = 0
     current_level_id = 0
@@ -23,8 +23,20 @@ function love.load()
 
     initialize()
 
+    --config loading!
+    local settings = love.filesystem.read("settings")
+    if settings then
+        for event, value in settings:gmatch("([A-Z ]+)%:(.-)\n") do
+            if value and value ~= "nil" then
+                value = tonumber(value) or value
+                beholder.trigger(event, value)
+            end
+        end
+    end
+
     debug_draw = false
 
+    love.filesystem.createDirectory("resources")
     love.joystick.loadGamepadMappings("resources/mappings.list")
     if love.filesystem.isFile("resources/user.mappings.list") then
         love.joystick.loadGamepadMappings("resources/user.mappings.list")
@@ -226,3 +238,19 @@ function love.run()
     end
 end
 
+
+love.quit = function()
+    local f = love.filesystem.newFile("settings", "w")
+    if not f then return end
+    local musicVolume = state.game.paused_menu.music_volume
+    local soundVolume = state.game.paused_menu.game_volume
+    local holdToJump  = state.game.paused_menu.hold_to_jump
+    local particles   = state.game.paused_menu.particles
+    f:write(
+    "SET MUSIC VOLUME:"  .. tostring(musicVolume) .. '\n' ..
+    "SET GAME VOLUME:"   .. tostring(soundVolume) .. '\n' ..
+    "SET HOLD TO JUMP:"  .. tostring(holdToJump)  .. '\n' ..
+    "SET PARTICLE RATE:" .. tostring(particles)   .. '\n')
+    print "things saved maybe"
+    f:close()
+end

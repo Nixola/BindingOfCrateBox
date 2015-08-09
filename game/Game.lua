@@ -241,6 +241,7 @@ function Game:keypressed(key)
         self.paused_menu.about = false
         self.paused_menu.collection = false
         self.paused_menu.how2play = false
+        self.paused_menu.controller = false
     end
 end
 
