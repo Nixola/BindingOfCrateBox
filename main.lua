@@ -61,6 +61,7 @@ function love.load()
 end
 
 function love.update(dt)
+    --print(love.timer.getAverageDelta())
     if current_state.end_it_all then
         loadRequire()
         loadScale()
@@ -186,55 +187,56 @@ end
 
 
 function love.run()
-    math.randomseed(os.time())
-    math.random(); math.random(); math.random();
+    love.math.setRandomSeed(os.time())
+    love.math.random(); love.math.random(); love.math.random();
 
-    if love.load then love.load(arg) end
+    love.event.pump()
+
+    love.load(arg)
+
+    love.timer.step()
 
     local t = 0
     local dt = 0
-    local fixed_dt = 1/60 
+    local fixed_dt = 1/60
     local accumulator = 0
 
     -- Main loop time
     while true do
         -- Process events
-        if love.event then
-            love.event.pump()
-            for e, a, b, c, d in love.event.poll() do
-                if e == "quit" then
-                    if not love.quit or not love.quit() then
-                        if love.audio then
-                            love.audio.stop()
-                        end
-                        return
+        love.event.pump()
+        for e, a, b, c, d in love.event.poll() do
+            if e == "quit" then
+                if not love.quit() then
+                    if love.audio then
+                        love.audio.stop()
                     end
+                    return
                 end
-                love.handlers[e](a, b, c, d)
             end
+            love.handlers[e](a, b, c, d)
         end
 
         -- Update dt, as we'll be passing it to update
-        if love.timer then
-            love.timer.step()
-            dt = love.timer.getDelta()
-        end
+        love.timer.step()
+        dt = love.timer.getDelta()
 
         if dt > fixed_dt then dt = fixed_dt end
         accumulator = accumulator + dt
 
         while accumulator >= fixed_dt do
-            if love.update then love.update(fixed_dt) end
+            love.update(fixed_dt)
             accumulator = accumulator - fixed_dt
             t = t + fixed_dt
         end
 
-        if love.graphics then
-            love.graphics.clear()
-            if love.draw then love.draw() end
-        end
+        love.graphics.clear()
+        love.graphics.origin()
+        love.draw()
+        love.graphics.present()
+        
+        love.timer.sleep(0.001)
 
-        if love.graphics then love.graphics.present() end
     end
 end
 
