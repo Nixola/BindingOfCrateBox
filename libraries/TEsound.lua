@@ -23,7 +23,7 @@ function TEsound.play(sound, tags, volume, pitch, func)
 		error("You must specify a sound - a filepath as a string, a SoundData, or a table of them. Not a Source!")
 	end
 	
-	table.insert(TEsound.channels, { love.audio.newSource(sound), func, {volume or 1, pitch or 1}, tags=(type(tags) == "table" and tags or {tags}) })
+	table.insert(TEsound.channels, { love.audio.newSource(sound, "stream"), func, {volume or 1, pitch or 1}, tags=(type(tags) == "table" and tags or {tags}) })
 	local s = TEsound.channels[#TEsound.channels]
 	s[1]:play()
 	s[1]:setVolume( (volume or 1) * TEsound.findVolume(tags) * (TEsound.volumeLevels.all or 1) )
@@ -101,7 +101,7 @@ end
 --- Cleans up finished sounds, freeing memory (highly recommended to go in love.update()). If not called, memory and channels won't be freed, and sounds won't loop.
 function TEsound.cleanup()
 	for k,v in ipairs(TEsound.channels) do
-		if v[1]:isStopped() then
+		if not v[1]:isPlaying() then
 			if v[2] then v[2](v[3]) end		-- allow sounds to use custom functions (primarily for looping, but be creative!)
 			table.remove(TEsound.channels, k)
 		end

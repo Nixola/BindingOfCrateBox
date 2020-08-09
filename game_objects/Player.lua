@@ -147,9 +147,9 @@ end
 function Player:draw()
     if self.bombing then return end
     if not self.invisible then
-        if self.blinking then love.graphics.setColor(255, 255, 255, 0)
-        else love.graphics.setColor(255, 255, 255, self.alpha) end
-    else love.graphics.setColor(255, 255, 255, self.alpha) end
+        if self.blinking then love.graphics.setColor(colors.white(0))
+        else love.graphics.setColor(colors.white(self.alpha)) end
+    else love.graphics.setColor(colors.white(self.alpha)) end
     if self.current_attack then
         if self.current_attack.name == 'Brimstone' then
             --love.graphics.setColorMode('combine')
@@ -158,7 +158,7 @@ function Player:draw()
     end
     self:visualDraw()
     --love.graphics.setColorMode('modulate')
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     self:attackDraw()
     self:itemDraw()
     self:physicsRectangleDraw()

@@ -34,7 +34,7 @@ function PausedMenu:initialize()
     self.collection = false
     self.how2play = false
     self.controller = false
-    self.selected_color = {232, 128, 232, 255}
+    self.selected_color = {colors.pink29(1)}
     self.hold_to_jump = true
     beholder.observe('HOLD TO JUMP REQUEST', function()
         beholder.trigger('HOLD TO JUMP REPLY', self.hold_to_jump)
@@ -69,12 +69,12 @@ function PausedMenu:draw()
         love.graphics.setFont(UI_TEXT_FONT_48)
         local text = '-MY COLLECTION-'
         local w = UI_TEXT_FONT_48:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 400 - w/2 - 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 48 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 + 2)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(text, 400 - w/2, 48)
 
         local i, j = 1, 1
@@ -82,53 +82,53 @@ function PausedMenu:draw()
             if k % 15 == 0 then j = j + 1 end
             i = k % 15 
             if table.contains(locked_attacks, item) or table.contains(locked_passives, item) then
-                love.graphics.setColor(0, 0, 0, 255)
+                love.graphics.setColor(colors.black)
             end
             love.graphics.draw(resources[item].visual, 64+i*48 - resources[item].visual:getWidth()/2, 96+j*64 - resources[item].visual:getHeight()/2)
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
 
     elseif self.how2play then
         love.graphics.setFont(UI_TEXT_FONT_48)
         local text = '-HOW2PLAY-'
         local w = UI_TEXT_FONT_48:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 400 - w/2 - 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 48 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 + 2)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(text, 400 - w/2, 48)
 
         for i, text in ipairs(self.how2play_texts) do
             love.graphics.setFont(UI_TEXT_FONT_16)
             w = UI_TEXT_FONT_16:getWidth(text)
-            love.graphics.setColor(0, 0, 0, 255)
+            love.graphics.setColor(colors.black)
             love.graphics.print(text, 400 - w/2 - 2, 192+i*32 - 2)
             love.graphics.print(text, 400 - w/2 - 2, 192+i*32 + 2)
             love.graphics.print(text, 400 - w/2 + 2, 192+i*32 - 2)
             love.graphics.print(text, 400 - w/2 + 2, 192+i*32 + 2)
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
             love.graphics.print(text, 400 - w/2, 192+i*32)
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
 
     elseif self.controller then
         love.graphics.setFont(UI_TEXT_FONT_48)
         local text = '-CONTROLLER-'
         local w = UI_TEXT_FONT_48:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 400 - w/2 - 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 48 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 + 2)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(text, 400 - w/2, 48)
 
         for i, text in ipairs(self.controller_texts) do
             love.graphics.setFont(UI_TEXT_FONT_16)
             w = UI_TEXT_FONT_16:getWidth(text)
-            love.graphics.setColor(0, 0, 0, 255)
+            love.graphics.setColor(colors.black)
             love.graphics.print(text, 400 - w/2 - 2, 192+i*32 - 2)
             love.graphics.print(text, 400 - w/2 - 2, 192+i*32 + 2)
             love.graphics.print(text, 400 - w/2 + 2, 192+i*32 - 2)
@@ -136,28 +136,28 @@ function PausedMenu:draw()
             if i%4 == 0 then
                 love.graphics.setColor(unpack(self.selected_color))
             else
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
             end
             love.graphics.print(text, 400 - w/2, 192+i*32)
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
 
     elseif self.settings then
         love.graphics.setFont(UI_TEXT_FONT_48)
         local text = '-SETTINGS-'
         local w = UI_TEXT_FONT_48:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 400 - w/2 - 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 48 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 + 2)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(text, 400 - w/2, 48)
 
         love.graphics.setFont(UI_TEXT_FONT_24)
         text = 'PARTICLES'
         w = UI_TEXT_FONT_24:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 200 - w/2 - 2, 304 - 2)
         love.graphics.print(text, 200 - w/2 - 2, 304 + 2)
         love.graphics.print(text, 200 - w/2 + 2, 304 - 2)
@@ -165,12 +165,12 @@ function PausedMenu:draw()
         if self.settings_pointer == 4 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 200 - w/2, 304)
         if self.particles == 1 then text = 'ON'
         else text = 'OFF (impatcs gameplay)' end
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 336 - 2, 304 - 2)
         love.graphics.print(text, 336 - 2, 304 + 2)
         love.graphics.print(text, 336 + 2, 304 - 2)
@@ -178,14 +178,14 @@ function PausedMenu:draw()
         if self.settings_pointer == 4 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 336, 304)
 
         love.graphics.setFont(UI_TEXT_FONT_24)
         text = 'HOLD TO JUMP'
         w = UI_TEXT_FONT_24:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 200 - w/2 - 2, 256 - 2)
         love.graphics.print(text, 200 - w/2 - 2, 256 + 2)
         love.graphics.print(text, 200 - w/2 + 2, 256 - 2)
@@ -193,12 +193,12 @@ function PausedMenu:draw()
         if self.settings_pointer == 3 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 200 - w/2, 256)
         if self.hold_to_jump then text = 'ON'
         else text = 'OFF' end
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 336 - 2, 256 - 2)
         love.graphics.print(text, 336 - 2, 256 + 2)
         love.graphics.print(text, 336 + 2, 256 - 2)
@@ -206,14 +206,14 @@ function PausedMenu:draw()
         if self.settings_pointer == 3 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 336, 256)
 
         love.graphics.setFont(UI_TEXT_FONT_24)
         text = 'GAME VOLUME'
         w = UI_TEXT_FONT_24:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 200 - w/2 - 2, 208 - 2)
         love.graphics.print(text, 200 - w/2 - 2, 208 + 2)
         love.graphics.print(text, 200 - w/2 + 2, 208 - 2)
@@ -221,7 +221,7 @@ function PausedMenu:draw()
         if self.settings_pointer == 2 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 200 - w/2, 208)
         beholder.trigger('GAME VOLUME REQUEST')
@@ -230,20 +230,20 @@ function PausedMenu:draw()
                 if self.settings_pointer == 2 then
                     love.graphics.setColor(unpack(self.selected_color))
                 else
-                    love.graphics.setColor(255, 255, 255, 255)
+                    love.graphics.setColor(colors.white)
                 end
                 love.graphics.rectangle('fill', 316 + i*20, 216, 16, 24)
                 love.graphics.setColor(0, 0, 0, 255)
                 love.graphics.rectangle('line', 316 + i*20, 216, 16, 24)
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
             end
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
 
         love.graphics.setFont(UI_TEXT_FONT_24)
         text = 'MUSIC VOLUME'
         w = UI_TEXT_FONT_24:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 200 - w/2 - 2, 160 - 2)
         love.graphics.print(text, 200 - w/2 - 2, 160 + 2)
         love.graphics.print(text, 200 - w/2 + 2, 160 - 2)
@@ -251,7 +251,7 @@ function PausedMenu:draw()
         if self.settings_pointer == 1 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 200 - w/2, 160)
         beholder.trigger('MUSIC VOLUME REQUEST')
@@ -260,21 +260,21 @@ function PausedMenu:draw()
                 if self.settings_pointer == 1 then
                     love.graphics.setColor(unpack(self.selected_color))
                 else
-                    love.graphics.setColor(255, 255, 255, 255)
+                    love.graphics.setColor(colors.white)
                 end
                 love.graphics.rectangle('fill', 316 + i*20, 168, 16, 24)
-                love.graphics.setColor(0, 0, 0, 255)
+                love.graphics.setColor(colors.black)
                 love.graphics.rectangle('line', 316 + i*20, 168, 16, 24)
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
             end
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
 
     elseif self.about then
         love.graphics.setFont(UI_TEXT_FONT_48)
         local text = '-ABOUT-'
         local w = UI_TEXT_FONT_48:getWidth(text)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(text, 400 - w/2 - 2, 48 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 48 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 48 - 2)
@@ -282,7 +282,7 @@ function PausedMenu:draw()
         if self.settings_pointer == 1 then
             love.graphics.setColor(unpack(self.selected_color))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 400 - w/2, 48)
 
@@ -291,32 +291,32 @@ function PausedMenu:draw()
             if i > 1 then
                 love.graphics.setFont(UI_TEXT_FONT_16)
                 w = UI_TEXT_FONT_16:getWidth(text)
-                love.graphics.setColor(0, 0, 0, 255)
+                love.graphics.setColor(colors.black)
                 love.graphics.print(text, 400 - w/2 - 2, 192+i*32 - 2)
                 love.graphics.print(text, 400 - w/2 - 2, 192+i*32 + 2)
                 love.graphics.print(text, 400 - w/2 + 2, 192+i*32 - 2)
                 love.graphics.print(text, 400 - w/2 + 2, 192+i*32 + 2)
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
                 love.graphics.print(text, 400 - w/2, 192+i*32)
             else
                 love.graphics.setFont(UI_TEXT_FONT_24)
                 w = UI_TEXT_FONT_24:getWidth(text)
-                love.graphics.setColor(0, 0, 0, 255)
+                love.graphics.setColor(colors.black)
                 love.graphics.print(text, 400 - w/2 - 2, 128+i*48 - 2)
                 love.graphics.print(text, 400 - w/2 - 2, 128+i*48 + 2)
                 love.graphics.print(text, 400 - w/2 + 2, 128+i*48 - 2)
                 love.graphics.print(text, 400 - w/2 + 2, 128+i*48 + 2)
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
                 love.graphics.print(text, 400 - w/2, 128+i*48)
             end
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
 
     else
         love.graphics.setFont(UI_TEXT_FONT_32)
         for i, option in ipairs(self.options) do
             local w = UI_TEXT_FONT_32:getWidth(option)
-            love.graphics.setColor(0, 0, 0, 255)
+            love.graphics.setColor(colors.black)
             love.graphics.print(option, 400 - w/2 - 2, i*64 - 2)
             love.graphics.print(option, 400 - w/2 - 2, i*64 + 2)
             love.graphics.print(option, 400 - w/2 + 2, i*64 - 2)
@@ -324,11 +324,11 @@ function PausedMenu:draw()
             if self.pointer == i then
                 love.graphics.setColor(unpack(self.selected_color))
             else
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
             end
             love.graphics.print(option, 400 - w/2, i*64)
         end
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
     end
 end
 

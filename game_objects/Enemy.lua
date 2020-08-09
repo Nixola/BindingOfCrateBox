@@ -15,9 +15,9 @@ function Enemy:initialize(world, x, y, direction, hard, type)
     self:behaviorInit(direction)
     self:movableInit(SMALL_ENEMYA, SMALL_ENEMY_MAX_VELOCITY, SMALL_ENEMY_GRAVITY_SCALE, 1)
     if hard then
-        self.dying_rgb = {128, 128, 128, 255}
+        self.dying_rgb = {colors.gray_mid(1)}
     else
-        self.dying_rgb = {255, 255, 255, 255}
+        self.dying_rgb = {colors.white(1)}
     end
     self:logicInit()
     if self.enemy_type == 'blue' then
@@ -58,13 +58,13 @@ end
 function Enemy:draw()
     local x, y = self.body:getPosition()
     local angle = self.body:getAngle()
-    if self.hard then love.graphics.setColor(128, 128, 128) end
+    if self.hard then love.graphics.setColor(colors.gray_mid) end
     if self.angry then 
         if self.hard then
             love.graphics.setColor(self.angry_rgb[1]/1.8, self.angry_rgb[2]/1.8, self.angry_rgb[3]/1.8) 
         else love.graphics.setColor(unpack(self.angry_rgb)) end
     end
-    if self.hit_red then love.graphics.setColor(240, 92, 92) end
+    if self.hit_red then love.graphics.setColor(colors.enemy.hit_red) end
     love.graphics.push()
     love.graphics.translate(x, y)
     love.graphics.rotate(angle)
@@ -76,7 +76,7 @@ function Enemy:draw()
     if self.direction == 'left' then self.walk_left:draw(x, y)
     else self.walk_right:draw(x, y) end
     love.graphics.pop()
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(colors.white)
     self:physicsRectangleDraw()
 end
 

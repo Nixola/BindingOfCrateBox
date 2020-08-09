@@ -29,9 +29,9 @@ function UI:initialize(p)
     beholder.observe('UNLOCK TEXT', function(text)
         table.insert(self.unlock_texts, text)
         local i = #self.unlock_texts
-        if i == 1 then main_tween(1, self, {unlock_colors1 = 255}, 'linear')
-        elseif i == 2 then main_tween(1, self, {unlock_colors2 = 255}, 'linear')
-        elseif i == 3 then main_tween(1, self, {unlock_colors3 = 255}, 'linear'); end
+        if i == 1 then main_tween(1, self, {unlock_colors1 = 1}, 'linear')
+        elseif i == 2 then main_tween(1, self, {unlock_colors2 = 1}, 'linear')
+        elseif i == 3 then main_tween(1, self, {unlock_colors3 = 1}, 'linear'); end
     end)
     beholder.observe('UI TEXT', function(api_type, api_name) 
         if api_type == 'Passive' or api_type == 'Item' then
@@ -79,23 +79,23 @@ end
 
 function UI:draw()
     if current_map_name == 'end' then 
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.setFont(UI_TEXT_FONT_32)
         for i, text in ipairs(self.unlock_texts) do
             local t = ("unlocked " .. text .. "!")
             local w = UI_TEXT_FONT_32:getWidth(t)
-            if i == 1 then love.graphics.setColor(0, 0, 0, self.unlock_colors1)
-            elseif i == 2 then love.graphics.setColor(0, 0, 0, self.unlock_colors2)
-            elseif i == 3 then love.graphics.setColor(0, 0, 0, self.unlock_colors3) end
+            if i == 1 then love.graphics.setColor(colors.black(self.unlock_colors1))
+            elseif i == 2 then love.graphics.setColor(colors.black(self.unlock_colors2))
+            elseif i == 3 then love.graphics.setColor(colors.black(self.unlock_colors3)) end
             love.graphics.print(t, 400 - w/2 - 1, 128 + 48*(i-1) - 1)
             love.graphics.print(t, 400 - w/2 - 1, 128 + 48*(i-1) + 1)
             love.graphics.print(t, 400 - w/2 + 1, 128 + 48*(i-1) - 1)
             love.graphics.print(t, 400 - w/2 + 1, 128 + 48*(i-1) + 1)
-            if i == 1 then love.graphics.setColor(255, 255, 255, self.unlock_colors1)
-            elseif i == 2 then love.graphics.setColor(255, 255, 255, self.unlock_colors2)
-            elseif i == 3 then love.graphics.setColor(255, 255, 255, self.unlock_colors3) end
+            if i == 1 then love.graphics.setColor(colors.white(self.unlock_colors1))
+            elseif i == 2 then love.graphics.setColor(colors.white(self.unlock_colors2))
+            elseif i == 3 then love.graphics.setColor(colors.white(self.unlock_colors3)) end
             love.graphics.print(t, 400 - w/2, 128 + 48*(i-1))
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         return 
     end
@@ -106,25 +106,25 @@ function UI:draw()
     local px, py = 0, 0
 
     if self.final_room then
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.setFont(UI_TEXT_FONT_48)
         local t = 'FINAL ROOM!!1!'
         local w = UI_TEXT_FONT_48:getWidth(t)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(t, 400 - w/2 - 1, 96 - 1)
         love.graphics.print(t, 400 - w/2 - 1, 96 + 1)
         love.graphics.print(t, 400 - w/2 + 1, 96 - 1)
         love.graphics.print(t, 400 - w/2 + 1, 96 + 1)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(t, 400 - w/2, 96)
         t = 'DANGER, DANGER, DANGER!!!!!!1111111!!'
         w = UI_TEXT_FONT_48:getWidth(t)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(t, 400 - w/2 - 1, 160 - 1)
         love.graphics.print(t, 400 - w/2 - 1, 160 + 1)
         love.graphics.print(t, 400 - w/2 + 1, 160 - 1)
         love.graphics.print(t, 400 - w/2 + 1, 160 + 1)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(t, 400 - w/2, 160)
     end
 
@@ -132,23 +132,23 @@ function UI:draw()
     if self.ui_text_flag then
         local w = UI_TEXT_FONT_16:getWidth(self.ui_text_desc)
         love.graphics.setFont(UI_TEXT_FONT_16)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(self.ui_text_desc, self.td_px-1, self.td_py-1)
         love.graphics.print(self.ui_text_desc, self.td_px-1, self.td_py+1)
         love.graphics.print(self.ui_text_desc, self.td_px+1, self.td_py+1)
         love.graphics.print(self.ui_text_desc, self.td_px+1, self.td_py-1)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(self.ui_text_desc, self.td_px, self.td_py)
         
         w = UI_TEXT_FONT_16:getWidth(self.ui_text_other)
         px, py = 800 - self.td_px - w, self.td_py
         love.graphics.setFont(UI_TEXT_FONT_16)
-        love.graphics.setColor(0, 0, 0, 255)
+        love.graphics.setColor(colors.black)
         love.graphics.print(self.ui_text_other, px-1, py-1)
         love.graphics.print(self.ui_text_other, px-1, py+1)
         love.graphics.print(self.ui_text_other, px+1, py+1)
         love.graphics.print(self.ui_text_other, px+1, py-1)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.print(self.ui_text_other, px, py)
     end
 
@@ -157,23 +157,23 @@ function UI:draw()
     love.graphics.setFont(UI_TEXT_FONT_24)
     love.graphics.draw(coin, 800-200+12, self.p.y + 98)
     px, py = self.p.x + 800-200+32, self.p.y + 86
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(colors.black)
     love.graphics.print("x" .. money, px-1, py-1)
     love.graphics.print("x" .. money, px-1, py+1)
     love.graphics.print("x" .. money, px+1, py+1)
     love.graphics.print("x" .. money, px+1, py-1)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     love.graphics.print("x" .. money, px, py)
 
     love.graphics.setFont(UI_TEXT_FONT_24)
     love.graphics.draw(bomb, 800-100-4, self.p.y + 90)
     px, py = self.p.x + 800-100+32, self.p.y + 86
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(colors.black)
     love.graphics.print("x" .. bombs, px-1, py-1)
     love.graphics.print("x" .. bombs, px-1, py+1)
     love.graphics.print("x" .. bombs, px+1, py+1)
     love.graphics.print("x" .. bombs, px+1, py-1)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     love.graphics.print("x" .. bombs, px, py)
 
     -- BUFFS
@@ -187,12 +187,12 @@ function UI:draw()
             local image = resources[buff.name].visual
             local w, h = image:getWidth(), image:getHeight()
             px, py = 8+(i-1)*32+w/2-wb/2, 128+8+h
-            love.graphics.setColor(0, 0, 0, 255)
+            love.graphics.setColor(colors.black)
             love.graphics.print(tostring(t), px-1, py-1)
             love.graphics.print(tostring(t), px+1, py+1)
             love.graphics.print(tostring(t), px-1, py+1)
             love.graphics.print(tostring(t), px+1, py-1)
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
             love.graphics.print(tostring(t), px, py)
         end
     end
@@ -202,12 +202,12 @@ function UI:draw()
     local wi = UI_TEXT_FONT_16:getWidth("item")
     love.graphics.setFont(UI_TEXT_FONT_16)
     px, py = self.p.x + 800-200+50-wa/2, self.p.y + 12
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(colors.black)
     love.graphics.print("attack", px-1, py-1)
     love.graphics.print("attack", px+1, py+1)
     love.graphics.print("attack", px-1, py+1)
     love.graphics.print("attack", px+1, py-1)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     love.graphics.print("attack", px, py)
     if self.player_ref.current_attack then
         local image = resources[self.player_ref.current_attack.name].visual
@@ -217,12 +217,12 @@ function UI:draw()
     end
 
     px, py = self.p.x + 800-100+50-wi/2, self.p.y + 12
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(colors.black)
     love.graphics.print("item", px-1, py-1)
     love.graphics.print("item", px+1, py+1)
     love.graphics.print("item", px-1, py+1)
     love.graphics.print("item", px+1, py-1)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     love.graphics.print("item", px, py)
     if self.player_ref.current_item then
         if self.player_ref.current_item.name ~= 'Empty' then
@@ -237,12 +237,12 @@ function UI:draw()
     love.graphics.setFont(UI_TEXT_FONT_16)
     wi = UI_TEXT_FONT_16:getWidth("passives")
     px, py = self.p.x + 400-wi/2, self.p.y + 12
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(colors.black)
     love.graphics.print("passives", px-1, py-1)
     love.graphics.print("passives", px+1, py+1)
     love.graphics.print("passives", px-1, py+1)
     love.graphics.print("passives", px+1, py-1)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     love.graphics.print("passives", px, py)
     local n_px, n_py = 1, 1
     for _, passive in ipairs(self.player_ref.passives) do
@@ -261,12 +261,12 @@ function UI:draw()
     -- Draw life text
     local wh = UI_TEXT_FONT_16:getWidth("health")
     px, py = self.p.x + 5+93-wh/2, self.p.y + 12
-    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.setColor(colors.black)
     love.graphics.print("health", px-1, py-1)
     love.graphics.print("health", px+1, py+1)
     love.graphics.print("health", px-1, py+1)
     love.graphics.print("health", px+1, py-1)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(colors.white)
     love.graphics.print("health", px, py)
     -- Draw hearts
     for i = 1, self.player_ref.stats.max_hp do

@@ -12,7 +12,7 @@ LogicArea = {
         self.exploding = area_modifier.exploding
         self.r_i = self.area_logic.r_i
         self.r_f = self.area_logic.r_f
-        self.area_color = {244, 244, 244, 255}
+        self.area_color = {colors.area.on}
         self.dont_spawn_particles = dont_spawn_particles
 
         local size_flag = false
@@ -166,7 +166,7 @@ LogicArea = {
     -- Called on constructor if area has no parent (explodes immediately)
     logicAreaOnHit = function(self)
         beholder.trigger('PLAY SOUND EFFECT', 'explosion')
-        self:collectorAddTween(main_tween(self.area_logic.duration, self, {area_color = {32, 32, 32, 255}}, 'inQuart'))
+        self:collectorAddTween(main_tween(self.area_logic.duration, self, {area_color = {colors.area.off}}, 'inQuart'))
         self:collectorAddTimer(main_chrono:after(self.area_logic.duration, function() 
             self.dead = true 
             local x, y = self.body:getPosition()

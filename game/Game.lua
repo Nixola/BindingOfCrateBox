@@ -24,21 +24,21 @@ function Game:initialize()
         self.current_level.particle:setRate(n)
     end)
     self.music_text = nil
-    self.music_color = {255, 255, 255, 0}
-    self.music_color2 = {0, 0, 0, 0}
+    self.music_color = {colors.white(0)}
+    self.music_color2 = {colors.black(0)}
     beholder.observe('MUSIC UI TEXT', function(text)
         self.music_text = text
-        main_tween(2, self, {music_color = {255, 255, 255, 255}}, 'linear')
-        main_tween(2, self, {music_color2 = {0, 0, 0, 255}}, 'linear')
+        main_tween(2, self, {music_color = {colors.white(1)}}, 'linear')
+        main_tween(2, self, {music_color2 = {colors.black(1)}}, 'linear')
         over_chrono:after(6, function() 
             main_chrono:after(2, function() self.music_text = nil end)
-            main_tween(2, self, {music_color = {255, 255, 255, 0}}, 'linear')
-            main_tween(2, self, {music_color2 = {0, 0, 0, 0}}, 'linear')
+            main_tween(2, self, {music_color = {colors.white(0)}}, 'linear')
+            main_tween(2, self, {music_color2 = {colors.black(0)}}, 'linear')
         end)
     end)
 
     self.death = false
-    self.death_overlay = {128, 128, 128, 0}
+    self.death_overlay = {colors.gray_mid(0)}
     self.retry_alpha = 0
     self.retry = false
     self.retry_pointer = 1
@@ -47,7 +47,7 @@ function Game:initialize()
         beholder.trigger('DISABLE INPUT' .. self.current_level.player.id, 1)
         over_chrono:after(0.5, function()
             self.retry = true
-            main_tween(0.5, self, {retry_alpha = 255}, 'linear')
+            main_tween(0.5, self, {retry_alpha = 1}, 'linear')
         end)
     end)
 
@@ -114,35 +114,35 @@ function Game:draw()
                 love.graphics.setFont(UI_TEXT_FONT_24)
                 for i, text in ipairs(self.tutorial_texts) do
                     local w = UI_TEXT_FONT_24:getWidth(text)
-                    love.graphics.setColor(0, 0, 0, 255)
+                    love.graphics.setColor(colors.black)
                     love.graphics.print(text, self.tutorial_positions[i].x - w/2 - 1, self.tutorial_positions[i].y - 1)
                     love.graphics.print(text, self.tutorial_positions[i].x - w/2 - 1, self.tutorial_positions[i].y + 1)
                     love.graphics.print(text, self.tutorial_positions[i].x - w/2 + 1, self.tutorial_positions[i].y - 1)
                     love.graphics.print(text, self.tutorial_positions[i].x - w/2 + 1, self.tutorial_positions[i].y + 1)
-                    love.graphics.setColor(255, 255, 255, 255)
+                    love.graphics.setColor(colors.white)
                     love.graphics.print(text, self.tutorial_positions[i].x - w/2, self.tutorial_positions[i].y)
                 end
 
                 love.graphics.setFont(UI_TEXT_FONT_16)
                 local t = "Plug one in/out now or during the game!"
                 local w = UI_TEXT_FONT_16:getWidth(t)
-                love.graphics.setColor(0, 0, 0, 255)
+                love.graphics.setColor(colors.black)
                 love.graphics.print(t, 400 - w/2 - 1, 288 - 1)
                 love.graphics.print(t, 400 - w/2 - 1, 288 + 1)
                 love.graphics.print(t, 400 - w/2 + 1, 288 - 1)
                 love.graphics.print(t, 400 - w/2 + 1, 288 + 1)
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
                 love.graphics.print(t, 400 - w/2, 288)
 
                 love.graphics.setFont(UI_TEXT_FONT_48)
                 t = "OR ELSE"
                 w = UI_TEXT_FONT_48:getWidth(t)
-                love.graphics.setColor(0, 0, 0, 255)
+                love.graphics.setColor(colors.black)
                 love.graphics.print(t, 400 - w/2 - 1, 310 - 1)
                 love.graphics.print(t, 400 - w/2 - 1, 310 + 1)
                 love.graphics.print(t, 400 - w/2 + 1, 310 - 1)
                 love.graphics.print(t, 400 - w/2 + 1, 310 + 1)
-                love.graphics.setColor(255, 255, 255, 255)
+                love.graphics.setColor(colors.white)
                 love.graphics.print(t, 400 - w/2, 310)
             end
         end
@@ -155,47 +155,47 @@ function Game:draw()
         love.graphics.setFont(UI_TEXT_FONT_48)
         local text = 'you died'
         local w = UI_TEXT_FONT_48:getWidth(text)
-        love.graphics.setColor(0, 0, 0, self.retry_alpha)
+        love.graphics.setColor(colors.black(self.retry_alpha))
         love.graphics.print(text, 400 - w/2 - 2, 160 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 160 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 160 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 160 + 2)
-        love.graphics.setColor(255, 255, 255, self.retry_alpha)
+        love.graphics.setColor(colors.white(self.retry_alpha))
         love.graphics.print(text, 400 - w/2, 160)
 
         love.graphics.setFont(UI_TEXT_FONT_40)
         local text = 'retry'
         local w = UI_TEXT_FONT_40:getWidth(text)
-        love.graphics.setColor(0, 0, 0, self.retry_alpha)
+        love.graphics.setColor(colors.black(self.retry_alpha))
         love.graphics.print(text, 400 - w/2 - 2, 316 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 316 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 316 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 316 + 2)
         if self.retry_pointer == 1 then 
-            love.graphics.setColor(232, 128, 232, self.retry_alpha)
+            love.graphics.setColor(colors.pink29(self.retry_alpha))
         else
-            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.setColor(colors.white)
         end
         love.graphics.print(text, 400 - w/2, 316)
 
         love.graphics.setFont(UI_TEXT_FONT_40)
         local text = 'quit'
         local w = UI_TEXT_FONT_40:getWidth(text)
-        love.graphics.setColor(0, 0, 0, self.retry_alpha)
+        love.graphics.setColor(colors.black(self.retry_alpha))
         love.graphics.print(text, 400 - w/2 - 2, 380 - 2)
         love.graphics.print(text, 400 - w/2 - 2, 380 + 2)
         love.graphics.print(text, 400 - w/2 + 2, 380 - 2)
         love.graphics.print(text, 400 - w/2 + 2, 380 + 2)
         if self.retry_pointer == 2 then 
-            love.graphics.setColor(232, 128, 232, self.retry_alpha)
+            love.graphics.setColor(colors.pink29(self.retry_alpha))
         else
-            love.graphics.setColor(255, 255, 255, self.retry_alpha)
+            love.graphics.setColor(colors.white(self.retry_alpha))
         end
         love.graphics.print(text, 400 - w/2, 380)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
     end
     if self.music_text then
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         love.graphics.setFont(UI_TEXT_FONT_16)
         local t = self.music_text
         local w = UI_TEXT_FONT_16:getWidth(t)
@@ -206,7 +206,7 @@ function Game:draw()
         love.graphics.print(t, 400 - w/2 + 1, 612 + 1)
         love.graphics.setColor(unpack(self.music_color))
         love.graphics.print(t, 400 - w/2, 612)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
     end
 end
 

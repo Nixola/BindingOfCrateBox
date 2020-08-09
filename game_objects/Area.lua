@@ -24,7 +24,7 @@ function Area:draw()
         local s = self.radius/256
         love.graphics.setColor(unpack(self.area_color))
         love.graphics.draw(area, x - self.radius, y - self.radius, 0, s, s)
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
         -- self:physicsCircleDraw()
     end
 end

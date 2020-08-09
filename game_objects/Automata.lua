@@ -9,7 +9,7 @@ function Automata:initialize(type, x, y, t_difficulty)
     self.h = 32
     self.radius = 40
     self.triggered = false
-    self.trigger_color = {128, 128, 128, 255}
+    self.trigger_color = {colors.gray_mid(1/2)}
     self.attacking_flag = false
     self.difficulty = t_difficulty
     self.r_timer = 0
@@ -62,15 +62,7 @@ function Automata:initialize(type, x, y, t_difficulty)
                 if not self.attacking_flag then
                     self.attacking_flag = true
                     -- up
-                    if self.difficulty == 'yellow' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {255, 255, 182, 255}}, 'outCubic'))
-                    elseif self.difficulty == 'green' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {182, 255, 182, 255}}, 'outCubic'))
-                    elseif self.difficulty == 'blue' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {182, 182, 255, 255}}, 'outCubic'))
-                    elseif self.difficulty == 'red' then
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {255, 182, 182, 255}}, 'outCubic'))
-                    end
+                    self:collectorAddTween(main_tween(1, self, {trigger_color = colors.automata[self.difficulty]}, 'outCubic'))
 
                     self:collectorAddTimer(main_chrono:after(1, function()
                         -- on
@@ -79,7 +71,7 @@ function Automata:initialize(type, x, y, t_difficulty)
                         -- off
                         self.triggered = false
                         -- down
-                        self:collectorAddTween(main_tween(1, self, {trigger_color = {128, 128, 128, 255}}, 'outCubic'))
+                        self:collectorAddTween(main_tween(1, self, {trigger_color = colors.automata.off}, 'outCubic'))
                         self:collectorAddTimer(main_chrono:after(1, function() self.attacking_flag = false end))
                     end))
                 end
@@ -102,7 +94,7 @@ function Automata:draw()
         love.graphics.setColor(unpack(self.trigger_color))
         love.graphics.draw(environment_32[98], self.p.x - self.w/2, self.p.y - self.h/2)
         --love.graphics.setColorMode('modulate')
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(colors.white)
     elseif self.type == 'Sentry' then
         love.graphics.draw(environment_32[98], self.p.x - self.w/2, self.p.y - self.h/2)
     end

@@ -77,6 +77,7 @@ function loadRequire()
     require 'definitions/pools'
     require 'definitions/eprojectiles'
     require 'definitions/enemies'
+    require 'definitions.colors'
 end
 
 function loadScale()
